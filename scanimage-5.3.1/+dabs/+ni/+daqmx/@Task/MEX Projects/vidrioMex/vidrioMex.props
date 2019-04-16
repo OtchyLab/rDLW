@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <MexOutDir>$(SolutionDir)..\</MexOutDir>
+    <MexDir>$(SolutionDir)vidrioMex\</MexDir>
+    <MexLibDir>$(MexDir)lib\win64\microsoft\</MexLibDir>
+    <MexHeaderDir>$(MexDir);$(MexDir)include\</MexHeaderDir>
+    <PLATFORM_MATLAB_MEX_EXT>.mexw64</PLATFORM_MATLAB_MEX_EXT>
+    <MexModuleDefinitionFile>$(MexDir)DLL_Exports.def</MexModuleDefinitionFile>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MexHeaderDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(MexLibDir)libcovrt.lib;$(MexLibDir)libemlrt.lib;$(MexLibDir)libeng.lib;$(MexLibDir)libmat.lib;$(MexLibDir)libmex.lib;$(MexLibDir)libmwblas.lib;$(MexLibDir)libmwblascompat32.lib;$(MexLibDir)libmwjpegreader.lib;$(MexLibDir)libmwlapack.lib;$(MexLibDir)libmwmathutil.lib;$(MexLibDir)libmwrgb2gray_tbb.lib;$(MexLibDir)libmwrgb2hsv_tbb.lib;$(MexLibDir)libmwservices.lib;$(MexLibDir)libmx.lib;$(MexLibDir)libut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ModuleDefinitionFile>$(MexModuleDefinitionFile)</ModuleDefinitionFile>
+    </Link>
+    <CustomBuildStep>
+      <Command>move "$(OutDir)$(TargetName)$(TargetExt)" "$(MexOutDir)$(TargetName)$(PLATFORM_MATLAB_MEX_EXT)"</Command>
+      <Outputs>dummy_name_so_event_always_fires;%(Outputs)</Outputs>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>set TargetExt=$(PLATFORM_MATLAB_MEX_EXT)</Command>
+    </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="MexOutDir">
+      <Value>$(MexOutDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="MexDir">
+      <Value>$(MexDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="MexLibDir">
+      <Value>$(MexLibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="MexHeaderDir">
+      <Value>$(MexHeaderDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PLATFORM_MATLAB_MEX_EXT">
+      <Value>$(PLATFORM_MATLAB_MEX_EXT)</Value>
+    </BuildMacro>
+    <BuildMacro Include="MexModuleDefinitionFile">
+      <Value>$(MexModuleDefinitionFile)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>
